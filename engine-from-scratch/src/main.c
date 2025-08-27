@@ -36,7 +36,7 @@ int	main(int argc, char **argv)
 			(
 			 (vec2){global.render.width * 0.5, global.render.height * 0.5},
 			 (vec2){50, 50},
-			 (vec4){1,1,1,1}
+			 (vec4){0, 1, 0, 1}
 			);
 
 		render_end();
