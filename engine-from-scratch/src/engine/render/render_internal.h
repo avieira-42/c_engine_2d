@@ -8,9 +8,9 @@
 
 typedef struct render_state_internal
 {
-	u32	vao_quad;
-	u32	vbo_quad;
-	u32	ebo_quad;
+	u32	vao_quad; // vertex array object - instructions on how to access the object data
+	u32	vbo_quad; // vertex buffer object - object data itself
+	u32	ebo_quad; // element buffer object - indices of the vertex array buffer
 }	Render_State_Internal;
 
 SDL_Window	*render_init_window(u32 width, u32 height);

@@ -4,7 +4,7 @@
 #define	SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
 
-#include "engine\global.h"
+#include "engine/global.h"
 
 int	main(int argc, char **argv)
 {
@@ -29,18 +29,18 @@ int	main(int argc, char **argv)
 					break;
 			}
 		}
+
+		render_begin();
+
+		render_quad
+			(
+			 (vec2){global.render.width * 0.5, global.render.height * 0.5},
+			 (vec2){50, 50},
+			 (vec4){1,1,1,1}
+			);
+
+		render_end();
 	}
-
-	render_begin();
-
-	render_quad
-		(
-		 (vec2){global.render.width * 0.5, global.render.height * 0.5},
-		 (vec2){50, 50},
-		 (vec4){1,1,1,1}
-		);
-
-	render_end();
 
 	return (0);
 }
