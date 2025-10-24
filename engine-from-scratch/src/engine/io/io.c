@@ -8,7 +8,7 @@
 
 // 20 Mib, can probably change this to a higher value without issue
 // Check your target platform.
-#define IO_READ_CHUNK_SIZE 2097152
+#define IO_READ_CHUNK_SIZE 2097152 // exactly 2MiB (memibytes) a good amount to read shaders
 #define IO_READ_ERROR_GENERAL "Error reading filie: %s. errno: %d\n"
 #define IO_READ_ERROR_MEMORY "Not enough free memory to read file: %s\n"
 
@@ -32,21 +32,25 @@ File	io_file_read(const char *path)
 	}
 
 	data = NULL;
-	used = 0;
-	size = 0;
+	used = 0; // bytes_read
+	size = 0; // next size to allocate
 
 	while (true)
 	{
+		// if size isnt enough to hold previous bytes read + chunk
 		if (used + IO_READ_CHUNK_SIZE + 1 > size)
 		{
+			// size is previous bytes read + chunk
 			size = used + IO_READ_CHUNK_SIZE + 1;
 
-			if (size <= used)
+			// return error in case of overflow
+			if (size <= used) 
 			{
 				free(data);
 				ERROR_RETURN(file,  "Input file too large: %s\n", path);
 			}
 
+			// reallocate the size of file read data
 			tmp = realloc(data, size);
 			if (!tmp)
 			{
@@ -85,7 +89,4 @@ File	io_file_read(const char *path)
 	return file;
 }
 
-int	io_file_write(void *buffer, size_t size, const char *path)
-{
-	return (0);
-}
+int	io_file_write(void *buffer, size_t size, const char *path);
