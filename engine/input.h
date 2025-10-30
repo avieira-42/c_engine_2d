@@ -7,22 +7,28 @@ typedef enum input_key
 	INPUT_KEY_UP,
 	INPUT_KEY_DOWN,
 	INPUT_KEY_ESCAPE,
-}	Input_key;
+}	Input_Key;
+
+typedef enum input_pad
+{
+	INPUT_DPAD_LEFT,
+}	Input_Pad;
 
 typedef enum key_state
 {
 	KS_UNPRESSED,
 	KS_PRESSED,
 	KS_HELD,
-}	Key_state;
+}	Key_State;
 
 typedef struct input_state
 {
-	Key_state	left;
-	Key_state	right;
-	Key_state	up;
-	Key_state	down;
-	Key_state	escape;
-} Input_state;
+	Key_State	left;
+	Key_State	right;
+	Key_State	up;
+	Key_State	down;
+	Key_State	escape;
+	Key_State	dpad_left;
+} Input_State;
 
 void	input_update(void);

@@ -1,11 +1,8 @@
-#include "../util.h"
-#include "../global/global.h"
-#include "../../../include/glad/glad.h"
-
 #include <SDL2/SDL.h>
 
-
-#include "render.h"
+#include "../util.h"
+#include "../global.h"
+#include "../glad.h"
 #include "render_internal.h"
 
 SDL_Window *render_init_window(u32 width, u32 height)
@@ -68,7 +65,7 @@ SDL_Window *render_init_window(u32 width, u32 height)
 
 void	render_init_shaders(Render_State_Internal *state)
 {
-	state->shader_default = render_shader_create("srcs/shaders/default.vert", "srcs/shaders/default.frag");
+	state->shader_default = render_shader_create("shaders/default.vert", "shaders/default.frag");
 
 	mat4x4_ortho(state->projection, 0, global.render.width, 0, global.render.height, -2, 2);
 

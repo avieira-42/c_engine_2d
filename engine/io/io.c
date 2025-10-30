@@ -3,12 +3,12 @@
 #include <errno.h>
 
 #include "../util.h"
-#include "io.h"
+#include "../io.h"
 
 // 20 Mib, can probably change this to a higher value without issue
 // Check your target platform.
 #define IO_READ_CHUNK_SIZE 2097152 // exactly 2MiB (memibytes) a good amount to read shaders
-#define IO_READ_ERROR_GENERAL "Error reading filie: %s. errno: %d\n"
+#define IO_READ_ERROR_GENERAL "Error reading file: %s. errno: %d\n"
 #define IO_READ_ERROR_MEMORY "Not enough free memory to read file: %s\n"
 
 // Adapted from https://stackoverflow.com/a/44894946 (not the chosen answer) by Nominal Animal

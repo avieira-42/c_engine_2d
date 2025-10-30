@@ -4,30 +4,45 @@ FLAGS = -Wall -Wextra -Werror -g
 
 LIBS = -lm `sdl2-config --cflags --libs` -lSDL2_mixer `pkg-config --libs glfw3` -ldl
 
-GLAD = include/glad/glad.c
+GLAD = engine/glad/glad.c
 
-RENDER = srcs/engine/render/render.c \
-		 srcs/engine/render/render_init.c \
-		 srcs/engine/render/render_utils.c
+RENDER = engine/render/render.c \
+		 engine/render/render_init.c \
+		 engine/render/render_utils.c
 
-IO = srcs/engine/io/io.c
+IO = engine/io/io.c
 
-GLOBAL = srcs/engine/global/global.c
+GLOBAL = engine/global/global.c
 
-MAIN = srcs/main.c
+CONFIG = engine/config/config.c
 
-ENGINE = $(GLOBAL) \
-		 $(IO) \
+INPUT = engine/input/input.c
+
+TIME = engine/time/time.c
+
+ENGINE = $(GLAD) \
 		 $(RENDER) \
-		 $(GLAD)
+		 $(IO) \
+		 $(GLOBAL) \
+		 $(CONFIG) \
+		 $(INPUT) \
+		 $(TIME) \
 
 SRCS = $(MAIN) \
 	   $(ENGINE)
+
+MAIN = main.c
+
+CODE = $(MAIN) \
+	   $(SRCS)
 
 game: $(SRCS)
 	$(CC) $(FLAGS) $(SRCS) $(LIBS) -o game
 
 clean:
+	rm config.ini
+
+fclean: clean
 	rm -rf game
 
 re: clean game

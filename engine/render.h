@@ -1,9 +1,9 @@
 #ifndef RENDER_H
 # define RENDER_H
 
-# include "../../../include/linmath/linmath.h"
+# include "linmath.h"
 # include <SDL2/SDL.h>
-#include "../types.h"
+#include "types.h"
 
 typedef struct render_state
 {

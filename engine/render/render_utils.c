@@ -1,8 +1,8 @@
-#include "../../../include/glad/glad.h"
+#include "../glad.h"
 #include "../util.h"
-#include "../io/io.h"
+#include "../io.h"
 #include "render_internal.h"
-#include "../../../include/glad/glad.h"
+#include "../glad.h"
 
 u32	render_shader_create(const char *path_vert, const char *path_frag)
 {
