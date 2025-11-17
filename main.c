@@ -19,15 +19,18 @@ static	void	input_handle(void)
 	{
 		pos[0] = pos[0] - 500 * global.time.delta;
 	}
-	if (global.input.right == KS_PRESSED || global.input.right == KS_HELD)
+	if (global.input.right == KS_PRESSED || global.input.right == KS_HELD
+		|| global.input.dpad_right == KS_PRESSED || global.input.dpad_right == KS_HELD)
 	{
 		pos[0] = pos[0] + 500 * global.time.delta;
 	}
-	if (global.input.down == KS_PRESSED || global.input.down == KS_HELD)
+	if (global.input.down == KS_PRESSED || global.input.down == KS_HELD
+		|| global.input.dpad_down == KS_PRESSED || global.input.dpad_down == KS_HELD)
 	{
 		pos[1] = pos[1] - 500 * global.time.delta;
 	}
-	if (global.input.up == KS_PRESSED || global.input.up == KS_HELD)
+	if (global.input.up == KS_PRESSED || global.input.up == KS_HELD
+		|| global.input.dpad_up == KS_PRESSED || global.input.dpad_up == KS_HELD)
 	{
 		pos[1] = pos[1] + 500 * global.time.delta;
 	}

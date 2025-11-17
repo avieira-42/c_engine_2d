@@ -20,7 +20,7 @@ SDL_Window *render_init_window(u32 width, u32 height)
 
 
 	// Init SDL Video
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0)
 	{
 		ERROR_EXIT("Could not init SDL: %s\n", SDL_GetError());
 		exit(1);

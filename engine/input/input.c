@@ -56,22 +56,15 @@ static void	input_gamepad_update(void)
 	if (gamepad_load() == false)
 		return ;
 
-    /*update_key_state(SDL_GameControllerGetButton(gamepad,
-				global.config.padbinds[INPUT_KEY_LEFT]),
-                &global.input.left);
     update_key_state(SDL_GameControllerGetButton(gamepad,
-				global.config.padbinds[INPUT_KEY_RIGHT]),
-                &global.input.right);
+				global.config.padbinds[INPUT_DPAD_RIGHT]),
+                &global.input.dpad_right);
     update_key_state(SDL_GameControllerGetButton(gamepad,
-				global.config.padbinds[INPUT_KEY_UP]),
-				&global.input.up);
+				global.config.padbinds[INPUT_DPAD_UP]),
+				&global.input.dpad_up);
     update_key_state(SDL_GameControllerGetButton(gamepad,
-				global.config.padbinds[INPUT_KEY_DOWN]),
-                &global.input.down);
-    update_key_state(SDL_GameControllerGetButton(gamepad,
-				global.config.padbinds[INPUT_KEY_ESCAPE]),
-                &global.input.escape);*/
-
+				global.config.padbinds[INPUT_DPAD_DOWN]),
+                &global.input.dpad_down);
     update_pad_state(SDL_GameControllerGetButton(gamepad,
 				global.config.padbinds[INPUT_DPAD_LEFT]),
                 &global.input.dpad_left);

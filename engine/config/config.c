@@ -58,11 +58,19 @@ static void	load_controls(const char *config_buffer)
 	config_key_bind(INPUT_KEY_ESCAPE, config_get_value(config_buffer, "escape"));
 }
 
+static void controller_config()
+{
+	config_controller_bind(INPUT_DPAD_LEFT, "gamepad_dpleft");
+	config_controller_bind(INPUT_DPAD_RIGHT, "gamepad_dpright");
+	config_controller_bind(INPUT_DPAD_DOWN, "gamepad_dpdown");
+	config_controller_bind(INPUT_DPAD_UP, "gamepad_dpup");
+}
+
 static int	config_load(void)
 {
 	File	file_config;
 
-	config_controller_bind(INPUT_DPAD_LEFT, "gamepad_dpleft");
+	controller_config();
 
 	file_config = io_file_read("./config.ini");
 	if (!file_config.is_valid)
@@ -112,7 +120,7 @@ void	config_controller_bind(Input_Pad key, const char *button_name)
 		button_code = SDL_GameControllerGetButtonFromString(button_string);
 
 		if (button_code == SDL_CONTROLLER_BUTTON_INVALID)
-			ERROR_RETURN(, "Invalid button code: %s\n", "dpleft");
+			ERROR_RETURN(, "Invalid button code: %s\n", button_name);
 
 		global.config.padbinds[key] = button_code;
 	}
