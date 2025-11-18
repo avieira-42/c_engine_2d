@@ -20,6 +20,10 @@ INPUT = engine/input/input.c
 
 TIME = engine/time/time.c
 
+ARRAY_LIST = engine/array_list/array_list.c
+
+PHYSICS = engine/physics/physics.c
+
 ENGINE = $(GLAD) \
 		 $(RENDER) \
 		 $(IO) \
@@ -27,6 +31,8 @@ ENGINE = $(GLAD) \
 		 $(CONFIG) \
 		 $(INPUT) \
 		 $(TIME) \
+		 $(ARRAY_LIST) \
+		 $(PHYSICS)
 
 SRCS = $(MAIN) \
 	   $(ENGINE)
