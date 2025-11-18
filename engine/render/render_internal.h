@@ -9,7 +9,9 @@
 typedef struct render_state_internal
 {
 	u32		vao_quad; // vertex array object - instructions on how to access the object data
+	u32		vao_line;
 	u32		vbo_quad; // vertex buffer object - object data itself
+	u32		vbo_line;
 	u32		ebo_quad; // element buffer object - indices of the vertex array buffer
 	u32		shader_default;
 	u32		texture_color;
@@ -20,6 +22,7 @@ SDL_Window	*render_init_window(u32 width, u32 height); // initializes the game w
 void		render_init_quad(u32 *vao, u32 *vbo, u32 *ebo); // initialized the quad
 void		render_init_color_texture(u32 *texture); // initialized the color texture
 void		render_init_shaders(Render_State_Internal *state); // initialized the shaders
+void		render_init_line(u32 *vao, u32 *vbo);
 u32			render_shader_create(const char *path_vert, const char *path_frag); // creates the shaders
 
 #endif
