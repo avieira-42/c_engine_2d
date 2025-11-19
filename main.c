@@ -12,42 +12,53 @@
 
 #define	SDL_MAIN_HANDLED
 
-static bool	should_quit = true;
-static vec2 pos;
+static	bool	should_quit = true;
+static	bool	update_start_frame = true;
+static	vec2 pos;
 
 static	void	input_handle(void)
 {
 	// USER_INPUT SET
-	/*if (global.input.left == KS_PRESSED || global.input.left == KS_HELD
-		|| global.input.dpad_left == KS_PRESSED || global.input.dpad_left == KS_HELD)
+	if (global.input.left == KS_PRESSED || global.input.left == KS_HELD
+		|| global.input.dpad_left == KS_PRESSED || global.input.dpad_left == KS_HELD
+		|| global.input.l1 == KS_PRESSED || global.input.l1 == KS_HELD)
 	{
 		pos[0] = pos[0] - 500 * global.time.delta;
 	}
 	if (global.input.right == KS_PRESSED || global.input.right == KS_HELD
-		|| global.input.dpad_right == KS_PRESSED || global.input.dpad_right == KS_HELD)
+		|| global.input.dpad_right == KS_PRESSED || global.input.dpad_right == KS_HELD
+		|| global.input.r1 == KS_PRESSED || global.input.r1 == KS_HELD)
 	{
 		pos[0] = pos[0] + 500 * global.time.delta;
 	}
 	if (global.input.down == KS_PRESSED || global.input.down == KS_HELD
-		|| global.input.dpad_down == KS_PRESSED || global.input.dpad_down == KS_HELD)
+		|| global.input.dpad_down == KS_PRESSED || global.input.dpad_down == KS_HELD
+		|| global.input.l2 == KS_PRESSED || global.input.l2 == KS_HELD)
 	{
 		pos[1] = pos[1] - 500 * global.time.delta;
 	}
 	if (global.input.up == KS_PRESSED || global.input.up == KS_HELD
-		|| global.input.dpad_up == KS_PRESSED || global.input.dpad_up == KS_HELD)
+		|| global.input.dpad_up == KS_PRESSED || global.input.dpad_up == KS_HELD
+		|| global.input.r2 == KS_PRESSED || global.input.r2 == KS_HELD)
 	{
 		pos[1] = pos[1] + 500 * global.time.delta;
 	}
-	if (global.input.escape == KS_PRESSED || global.input.escape == KS_HELD)
+	if (global.input.escape == KS_PRESSED || global.input.escape == KS_HELD
+		|| global.input.home == KS_PRESSED || global.input.home == KS_HELD)
 	{
 		should_quit = true;
-	}*/
+	}
+	if (global.input.cross == KS_PRESSED || global.input.cross == KS_HELD)
+	{
+		update_start_frame = true;
+	}
 
-	i32	x, y;
+	// MOUSE INPUT CONTROLL
+	/*i32	x, y;
 
 	SDL_GetMouseState(&x, &y);
 	pos[0] = (f32)x;
-	pos[1] = global.render.height - y;
+	pos[1] = global.render.height - y;*/
 }
 
 int	main(void)
@@ -105,6 +116,7 @@ int	main(void)
 	};
 
 	should_quit = false;
+	update_start_frame = false;
 	while (!should_quit)
 	{
 		time_update();
@@ -118,16 +130,16 @@ int	main(void)
 				case SDL_QUIT:
 					should_quit = true;
 					break;
-				case SDL_MOUSEBUTTONDOWN:
-					if (event.button.button == SDL_BUTTON_LEFT)
-					{
-						start_aabb.position[0] = pos[0];
-						start_aabb.position[1] = pos[1];
-						start_aabb_point[0] = pos[0];
-						start_aabb_point[1] = pos[1];
-					}
 				default:
 					break;
+			}
+			if (update_start_frame == true)
+			{
+				start_aabb.position[0] = pos[0];
+				start_aabb.position[1] = pos[1];
+				start_aabb_point[0] = pos[0];
+				start_aabb_point[1] = pos[1];
+				update_start_frame = false;
 			}
 		}
 

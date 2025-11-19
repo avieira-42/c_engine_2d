@@ -30,13 +30,14 @@ typedef enum input_pad
 	INPUT_L1,
 	INPUT_L2,
 	INPUT_CROSS,
-	INPUT_SQARE,
+	INPUT_SQUARE,
 	INPUT_CIRCLE,
 	INPUT_TRIANGLE,
 	INPUT_SELECT,
 	INPUT_OPTIONS,
 	INPUT_HOME,
 	INPUT_TOUCH,
+	INPUT_GUIDE,
 }	Input_Pad;
 
 typedef enum key_state
@@ -57,6 +58,24 @@ typedef struct input_state
 	Key_State	dpad_right;
 	Key_State	dpad_up;
 	Key_State	dpad_down;
+	Key_State	joystick_left;
+	Key_State	joystick_right;
+	Key_State	joystick_up;
+	Key_State	joystick_down;
+	Key_State	cross;
+	Key_State	square;
+	Key_State	circle;
+	Key_State	triangle;
+	Key_State	r;
+	Key_State	r1;
+	Key_State	r2;
+	Key_State	l;
+	Key_State	l1;
+	Key_State	l2;
+	Key_State	options;
+	Key_State	start;
+	Key_State	home;
+	Key_State	touch;
 } Input_State;
 
 void	input_update(void);

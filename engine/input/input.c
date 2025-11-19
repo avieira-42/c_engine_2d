@@ -68,7 +68,40 @@ static void	input_gamepad_update(void)
     update_pad_state(SDL_GameControllerGetButton(gamepad,
 				global.config.padbinds[INPUT_DPAD_LEFT]),
                 &global.input.dpad_left);
-}
+    update_pad_state(SDL_GameControllerGetButton(gamepad,
+				global.config.padbinds[INPUT_R]),
+                &global.input.r);
+    update_pad_state(SDL_GameControllerGetButton(gamepad,
+				global.config.padbinds[INPUT_R1]),
+                &global.input.r1);
+    update_pad_state(SDL_GameControllerGetButton(gamepad,
+				global.config.padbinds[INPUT_R2]),
+                &global.input.r2);
+    update_pad_state(SDL_GameControllerGetButton(gamepad,
+				global.config.padbinds[INPUT_L]),
+                &global.input.l);
+    update_pad_state(SDL_GameControllerGetButton(gamepad,
+				global.config.padbinds[INPUT_L1]),
+                &global.input.l1);
+    update_pad_state(SDL_GameControllerGetButton(gamepad,
+				global.config.padbinds[INPUT_L2]),
+                &global.input.l2);
+    update_pad_state(SDL_GameControllerGetButton(gamepad,
+				global.config.padbinds[INPUT_CROSS]),
+                &global.input.cross);
+    update_pad_state(SDL_GameControllerGetButton(gamepad,
+				global.config.padbinds[INPUT_CIRCLE]),
+                &global.input.circle);
+    update_pad_state(SDL_GameControllerGetButton(gamepad,
+				global.config.padbinds[INPUT_SQUARE]),
+                &global.input.square);
+    update_pad_state(SDL_GameControllerGetButton(gamepad,
+				global.config.padbinds[INPUT_TRIANGLE]),
+                &global.input.triangle);
+    update_pad_state(SDL_GameControllerGetButton(gamepad,
+				global.config.padbinds[INPUT_HOME]),
+                &global.input.home);
+} 
 
 static void	input_keyboard_update(void)
 {

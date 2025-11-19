@@ -64,7 +64,18 @@ static void controller_config()
 	config_controller_bind(INPUT_DPAD_RIGHT, "gamepad_dpright");
 	config_controller_bind(INPUT_DPAD_DOWN, "gamepad_dpdown");
 	config_controller_bind(INPUT_DPAD_UP, "gamepad_dpup");
-}
+	config_controller_bind(INPUT_R, "gamepad_rightstick");
+	config_controller_bind(INPUT_R1, "gamepad_rightshoulder");
+	config_controller_bind(INPUT_R2, "gamepad_righttrigger");
+	config_controller_bind(INPUT_L, "gamepad_leftstick");
+	config_controller_bind(INPUT_L1, "gamepad_leftshoulder");
+	config_controller_bind(INPUT_L2, "gamepad_lefttrigger");
+	config_controller_bind(INPUT_CROSS, "gamepad_a");
+	config_controller_bind(INPUT_CIRCLE, "gamepad_b");
+	config_controller_bind(INPUT_SQUARE, "gamepad_x");
+	config_controller_bind(INPUT_TRIANGLE, "gamepad_y");
+	config_controller_bind(INPUT_HOME, "gamepad_guide");
+} 
 
 static int	config_load(void)
 {
