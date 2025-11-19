@@ -17,5 +17,6 @@
 #define ORANGE (vec4){1, 0.5, 0, 1}
 #define PURPLE (vec4){0.5, 0, 1, 1}
 #define TURQUOISE (vec4){0, 1, 0.5, 1}
+#define FADED (vec4){1, 1, 1, 0.3}
 
 #endif

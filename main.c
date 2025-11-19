@@ -92,6 +92,8 @@ int	main(void)
 
 	AABB start_aabb = {.half_size = {75, 75}};
 
+	vec2 start_aabb_point = {1, 1};
+
 	AABB sum_aabb =
 	{
 		.position = {test_aabb.position[0], test_aabb.position[1]},
@@ -121,6 +123,8 @@ int	main(void)
 					{
 						start_aabb.position[0] = pos[0];
 						start_aabb.position[1] = pos[1];
+						start_aabb_point[0] = pos[0];
+						start_aabb_point[1] = pos[1];
 					}
 				default:
 					break;
@@ -138,65 +142,79 @@ int	main(void)
 
 		render_aabb((f32 *)&test_aabb, WHITE);
 
-		render_aabb((f32 *)&sum_aabb, (vec4){1, 1, 1, 0.5});
+		render_aabb((f32 *)&sum_aabb, FADED);
 
 		render_aabb((f32 *)&cursor_aabb, WHITE);
 
-		AABB minkowski_difference = aabb_minkowski_difference(test_aabb, cursor_aabb);
-		render_aabb((f32 *)&minkowski_difference, ORANGE);
-
-		vec2	pv;
-		aabb_penetration_vector(pv, minkowski_difference);
-
-		AABB	collision_aabb = cursor_aabb;
-		collision_aabb.position[0] += pv[0];
-		collision_aabb.position[1] += pv[1];
+		render_quad(start_aabb_point, (vec2){5, 5}, FADED);
 
 		if (physics_aabb_intersect_aabb(test_aabb, cursor_aabb))
-		{
 			render_aabb((f32 *)&cursor_aabb, RED);
-			render_aabb((f32 *)&collision_aabb, CYAN);
-
-			vec2_add(pv, pos, pv);
-			render_line_segment(pos, pv, CYAN);
-		}
 		else
 			render_aabb((f32 *)&cursor_aabb, WHITE);
-
-		render_aabb((f32 *)&start_aabb, (vec4){1, 1, 1, 0.5});
-		render_line_segment(start_aabb.position, pos, WHITE);
 
 		if (physics_point_intersect_aabb(pos, test_aabb))
 			render_quad(pos, (vec2){5, 5}, RED);
 		else
-			render_quad(pos, (vec2){5, 5}, WHITE);
+			render_quad(pos, (vec2){5, 5}, CYAN);
 
-		// TEST THE GENERATED RANDOM BODIES
-		/*
-		render_quad(pos, (vec2){50, 50}, (vec4){0, 1, 0, 1});
-		 * for (i = 0; i < body_count; ++i)
+		render_aabb((f32 *)&start_aabb, FADED);
+		render_line_segment(start_aabb.position, pos, FADED);
+
+		f32	x = sum_aabb.position[0];
+		f32	y = sum_aabb.position[1];
+		f32	size = sum_aabb.half_size[0];
+
+		render_line_segment((vec2){x - size, 0}, (vec2){x - size, global.render.height}, FADED);
+		render_line_segment((vec2){x + size, 0}, (vec2){x + size, global.render.height}, FADED);
+		render_line_segment((vec2){0, y - size}, (vec2){global.render.width, y - size}, FADED);
+		render_line_segment((vec2){0, y + size}, (vec2){global.render.width, y + size}, FADED);
+
+		vec2	min, max;
+		aabb_min_max(min, max, sum_aabb);
+
+		vec2	magnitude;
+		vec2_sub(magnitude, pos, start_aabb.position);
+
+		Hit	hit = ray_intersect_aabb(start_aabb.position, magnitude, sum_aabb);
+
+		if (hit.is_hit)
 		{
-			body = physics_body_get(i);
-			render_quad(body->aabb.position, body->aabb.half_size, (vec4){1, 0, 0, 1});
+			AABB	hit_aabb = 
+			{
+				.position = {hit.position[0], hit.position[1]},
+				.half_size = {start_aabb.half_size[0], start_aabb.half_size[1]}
+			};
+			render_aabb((f32 *)&hit_aabb, CYAN);
+			render_quad(hit.position, (vec2){5, 5}, CYAN);
+		}
 
-			if (body->aabb.position[0] > global.render.width || body->aabb.position[0] < 0)
-				body->velocity[0] *= -1;
-			if (body->aabb.position[1] > global.render.height || body->aabb.position[1] < 0)
-				body->velocity[1] *= -1;
+		for (u8 i = 0; i < 2; ++i)
+		{
+			if (magnitude[i] != 0)
+			{
+				f32	t1 = (min[i] - pos[i]) / magnitude[i];
+				f32	t2 = (max[i] - pos[i]) / magnitude[i];
 
-			if (body->velocity[0] > 500)
-				body->velocity[0] = 500;
-			if (body->velocity[0] < -500)
-				body->velocity[0] = -500;
-			if (body->velocity[1] > 500)
-				body->velocity[1] = 500;
-			if (body->velocity[1] < -500)
-				body->velocity[1] = -500;
-		}*/
+				vec2	point;
+				vec2_scale(point, magnitude, t1);
+				vec2_add(point, point, pos);
+				if (min[i] < start_aabb.position[i])
+					render_quad(point, (vec2){5,5}, ORANGE);
+				else
+					render_quad(point, (vec2){5,5}, CYAN);
+
+				vec2_scale(point, magnitude, t2);
+				vec2_add(point, point, pos);
+				if (max[i] < start_aabb.position[i])
+					render_quad(point, (vec2){5,5}, CYAN);
+				else
+					render_quad(point, (vec2){5, 5}, ORANGE);
+			}
+		}
 
 		render_end();
 		time_update_late();
 	}
-
 	return (0);
 }

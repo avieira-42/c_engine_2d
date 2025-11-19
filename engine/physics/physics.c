@@ -115,3 +115,40 @@ void	aabb_penetration_vector(vec2 r, AABB aabb)
 		r[1] = max[1];
 	}
 }
+
+Hit		ray_intersect_aabb(vec2 pos, vec2 magnitude, AABB aabb)
+{
+	vec2	min, max;
+	f32		last_entry;
+	f32		first_exit;
+	Hit		hit = {0};
+
+	aabb_min_max(min, max, aabb);
+	last_entry = -INFINITY;
+	first_exit = INFINITY;
+
+	for (u8 i = 0; i < 2; ++i)
+	{
+		if (magnitude[i] != 0)
+		{
+			f32	t1 = (min[i] - pos[i]) / magnitude[i];
+			f32	t2 = (max[i] - pos[i]) / magnitude[i];
+
+			last_entry = fmaxf(last_entry, fminf(t1, t2));
+			first_exit = fminf(first_exit, fmaxf(t1, t2));
+		}
+		else if (pos[i] <= min[i] || pos[i] >= max[i])
+			return hit;
+	}
+
+	if (first_exit > last_entry && first_exit > 0 && last_entry < 1)
+	{
+		hit.position[0] = pos[0] + magnitude[0] * last_entry;
+		hit.position[1] = pos[1] + magnitude[1] * last_entry;
+
+		hit.is_hit = true;
+		hit.time = last_entry;
+	}
+
+	return hit;
+}
