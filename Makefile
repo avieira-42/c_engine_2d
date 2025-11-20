@@ -45,10 +45,7 @@ CODE = $(MAIN) \
 game: $(SRCS)
 	$(CC) $(FLAGS) $(SRCS) $(LIBS) -o game
 
-clean:
-	rm config.ini
-
-fclean: clean
+fclean:
 	rm -rf game
 
-re: clean game
+re: fclean game
